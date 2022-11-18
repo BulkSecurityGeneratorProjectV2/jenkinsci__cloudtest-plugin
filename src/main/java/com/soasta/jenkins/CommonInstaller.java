@@ -27,6 +27,7 @@ import java.io.File;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URLConnection;
+import java.nio.file.Files;
 import java.security.cert.X509Certificate;
 import java.util.Enumeration;
 import java.util.logging.Level;
@@ -47,6 +48,7 @@ import org.jenkinsci.remoting.RoleChecker;
 
 import com.soasta.jenkins.httpclient.GenericSelfClosingHttpClient;
 import com.soasta.jenkins.httpclient.HttpClientSettings;
+
 /*******************************************************************************************************************************
  * END (Jenkins User-Agent change related imports)
  *******************************************************************************************************************************/
@@ -331,7 +333,7 @@ public class CommonInstaller extends DownloadFromUrlInstaller
     }
     
     private static void unzip(File dir, InputStream in) throws IOException {
-      File tmpFile = File.createTempFile("tmpzip", null); // uses java.io.tmpdir
+      File tmpFile = Files.createTempFile("tmpzip", null).toFile(); // uses java.io.tmpdir
       try {
           IOUtils.copy(in, tmpFile);
           unzip(dir,tmpFile);
